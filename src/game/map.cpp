@@ -1,5 +1,4 @@
 #include "map.h"
-#include <ios>
 
 Map::Map(const char* mapFileName)
 {

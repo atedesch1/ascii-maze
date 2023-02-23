@@ -33,16 +33,22 @@ void Game::ProcessEvents()
     while (true) {
         switch (screen.GetInput()) {
         case KEY_UP:
-            player.Move(0, 1);
+            player.Move(Forwards);
             break;
         case KEY_DOWN:
-            player.Move(0, -1);
+            player.Move(Backwards);
             break;
         case KEY_RIGHT:
-            player.Move(1, 0);
+            player.Move(Right);
             break;
         case KEY_LEFT:
-            player.Move(-1, 0);
+            player.Move(Left);
+            break;
+        case 'a':
+            player.Rotate(90);
+            break;
+        case 'd':
+            player.Rotate(-90);
             break;
         case KEY_BACKSPACE:
             running = false;
