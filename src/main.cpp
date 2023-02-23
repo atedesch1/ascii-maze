@@ -1,6 +1,7 @@
+#include <curses.h>
 #include <ncurses.h>
-#include <thread>
 #include <string.h>
+#include <thread>
 
 class Screen {
     WINDOW* window;
@@ -23,7 +24,22 @@ public:
         noecho(); // Input doesnt show
         cbreak(); // Get input without carriage return
         this->window = newwin(height, width, 0, 0);
+        keypad(window, true);
         refresh(); // Refresh screen
+    }
+
+    void SetBuffer(int i, int j, char c) {
+        buffer[i][j] = c;
+    }
+
+    void ClearBuffer() {
+        for (int i = 0; i < height; i++) {
+            memset((this->buffer)[i], ' ', width);
+        }
+    }
+
+    int GetInput() {
+        return wgetch(window);
     }
 
     void PrintScreen()
@@ -39,8 +55,34 @@ public:
     }
 };
 
+struct Position {
+    int x, y;
+};
+
+class Player {
+    Position position;
+
+public:
+    Player()
+    {
+        position.x = 0;
+        position.y = 0;
+    }
+
+    Position GetPosition() {
+        return position;
+    }
+
+    void Move(int dx, int dy)
+    {
+        position.x += dx;
+        position.y += dy;
+    }
+};
+
 class Game {
     Screen screen;
+    Player player;
 
 public:
     Game()
@@ -48,16 +90,43 @@ public:
     {
     }
 
-    void Init() {
+    void Init()
+    {
+        std::thread eventHandler(&Game::ProcessEvents, this);
         while (true) {
             Render();
             screen.PrintScreen();
         }
     }
 
-    void Render() { }
+    void Render() {
+        Position playerPos = player.GetPosition();
+        screen.ClearBuffer();
+        screen.SetBuffer(playerPos.y, playerPos.x, 'x');
+    }
 
-    void ProcessEvents() { }
+    void ProcessEvents()
+    {
+        while (true) {
+            int keyPressed = screen.GetInput(); 
+            switch (keyPressed) {
+            case KEY_UP:
+                player.Move(0, 1);
+                break;
+            case KEY_DOWN:
+                player.Move(0, -1);
+                break;
+            case KEY_RIGHT:
+                player.Move(1, 0);
+                break;
+            case KEY_LEFT:
+                player.Move(-1, 0);
+                break;
+            default:
+                break;
+            }
+        }
+    }
 };
 
 int main()
