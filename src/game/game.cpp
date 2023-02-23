@@ -17,14 +17,13 @@ void Game::Init()
     while (running) {
         Render();
         screen.PrintScreen();
-        //        screen.PrintMap(map.GetMap());
     }
     eventHandler.join();
 }
 
 void Game::Render()
 {
-    Position<float> playerPos = player.GetPosition();
+    auto playerPos = player.GetPosition();
     screen.ClearBuffer();
     screen.SetBuffer(playerPos.y, playerPos.x, 'x');
 }

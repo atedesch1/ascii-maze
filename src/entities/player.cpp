@@ -1,17 +1,16 @@
 #include "player.h"
 
 Player::Player()
+    : position(0, 0)
 {
-    position.x = 0;
-    position.y = 0;
 }
 
-Position<float> Player::GetPosition()
+Vector2D<double> Player::GetPosition()
 {
     return position;
 }
 
-void Player::Move(float dx, float dy)
+void Player::Move(double dx, double dy)
 {
     position.x += dx;
     position.y += dy;
