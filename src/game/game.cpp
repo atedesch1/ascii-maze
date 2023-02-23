@@ -1,17 +1,23 @@
 #include "game.h"
+#include <curses.h>
+#include <ncurses.h>
 
 Game::Game()
     : screen(100, 100)
+    , map("src/assets/map1.txt")
 {
     fov = 80;
+    running = false;
 }
 
 void Game::Init()
 {
+    running = true;
     std::thread eventHandler(&Game::ProcessEvents, this);
-    while (true) {
+    while (running) {
         Render();
         screen.PrintScreen();
+        //        screen.PrintMap(map.GetMap());
     }
     eventHandler.join();
 }
@@ -38,6 +44,10 @@ void Game::ProcessEvents()
             break;
         case KEY_LEFT:
             player.Move(-1, 0);
+            break;
+        case KEY_BACKSPACE:
+            running = false;
+            return;
             break;
         default:
             break;
