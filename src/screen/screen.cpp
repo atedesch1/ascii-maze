@@ -19,6 +19,14 @@ Screen::Screen(int width, int height)
     refresh(); // Refresh screen
 }
 
+Screen::~Screen()
+{
+    for (int i = 0; i < height; i++) {
+        delete[] (this->buffer)[i];
+    }
+    delete[] this->buffer;
+}
+
 void Screen::SetBuffer(int i, int j, char c)
 {
     buffer[i][j] = c;

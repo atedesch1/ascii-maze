@@ -9,6 +9,7 @@ class Screen {
 
 public:
     Screen(int width, int height);
+    ~Screen();
 
     void SetBuffer(int i, int j, char c);
 
