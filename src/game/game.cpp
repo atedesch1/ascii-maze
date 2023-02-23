@@ -18,7 +18,7 @@ void Game::Init()
 
 void Game::Render()
 {
-    Position playerPos = player.GetPosition();
+    Position<float> playerPos = player.GetPosition();
     screen.ClearBuffer();
     screen.SetBuffer(playerPos.y, playerPos.x, 'x');
 }

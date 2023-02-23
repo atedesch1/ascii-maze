@@ -6,12 +6,12 @@ Player::Player()
     position.y = 0;
 }
 
-Position Player::GetPosition()
+Position<float> Player::GetPosition()
 {
     return position;
 }
 
-void Player::Move(int dx, int dy)
+void Player::Move(float dx, float dy)
 {
     position.x += dx;
     position.y += dy;

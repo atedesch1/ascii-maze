@@ -2,13 +2,12 @@
 #include "../common/common.h"
 
 class Player {
-    Position position;
+    Position<float> position;
 
 public:
     Player();
 
-    Position GetPosition();
+    Position<float> GetPosition();
 
-    void Move(int dx, int dy);
+    void Move(float dx, float dy);
 };
-
