@@ -8,7 +8,7 @@ LDFLAGS := -lncurses
 BUILDDIR := ./bin
 SOURCEDIR := $(CURDIR)/src
 
-SOURCEFILES  := main.cpp
+SOURCEFILES  := main.cpp game/game.cpp screen/screen.cpp entities/player.cpp
 
 SRC :=  $(foreach file, $(SOURCEFILES), $(addprefix $(SOURCEDIR)/, $(file)))
 
