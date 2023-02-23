@@ -3,7 +3,7 @@ PROJECTNAME := maze
 CXX := clang++
 CXXOPTIMIZE := -02
 CXXFLAGS := -g -Wall -std=c++20
-LDFLAGS := 
+LDFLAGS := -lncurses 
 
 BUILDDIR := ./bin
 SOURCEDIR := $(CURDIR)/src
