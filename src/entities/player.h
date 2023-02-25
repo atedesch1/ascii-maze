@@ -25,6 +25,4 @@ public:
     void Move(Direction mov);
 
     void Rotate(Direction rot);
-
-    Vector3D<double> ToMapVectorSystem(Vector3D<double> v);
 };

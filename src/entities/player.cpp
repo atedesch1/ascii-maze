@@ -7,7 +7,7 @@ Player::Player()
 {
     direction = direction.ToUnit();
     runningSpeed = 1;
-    turningSpeed = DegreesToRadians(5);
+    turningSpeed = DegreesToRadians(10);
 }
 
 Vector2D<double> Player::GetPosition()
@@ -52,12 +52,4 @@ void Player::Rotate(Direction rot)
     default:
         break;
     }
-}
-
-Vector3D<double> Player::ToMapVectorSystem(Vector3D<double> v)
-{
-    return Vector3D<double>(
-        v.x * direction.x - v.y * direction.y,
-        v.x * direction.y + v.y * direction.x,
-        v.z);
 }

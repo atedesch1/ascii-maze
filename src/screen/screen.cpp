@@ -1,4 +1,5 @@
 #include "screen.h"
+#include <curses.h>
 
 Screen::Screen(int width, int height)
 {
@@ -53,6 +54,7 @@ void Screen::PrintScreen()
         }
         wprintw(window, "\n");
     }
+    redrawwin(window);
     wrefresh(window);
 }
 

@@ -5,6 +5,7 @@
 #include <cmath>
 #include "../entities/player.h"
 #include "../screen/screen.h"
+#include "../common/common.h"
 #include "map.h"
 
 class Game {

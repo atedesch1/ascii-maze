@@ -2,7 +2,7 @@
 
 Map::Map(const char* mapFileName)
 {
-    this->tileSize = 10;
+    this->tileSize = 15;
     this->map = new char*[MAP_LENGTH];
     for (int i = 0; i < MAP_LENGTH; i++) {
         (this->map)[i] = new char[MAP_LENGTH];
