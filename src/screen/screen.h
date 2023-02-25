@@ -18,4 +18,8 @@ public:
     int GetInput();
 
     void PrintScreen();
+
+    int GetWidth();
+    
+    int GetHeight();
 };

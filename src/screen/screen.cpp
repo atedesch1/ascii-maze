@@ -55,3 +55,13 @@ void Screen::PrintScreen()
     }
     wrefresh(window);
 }
+
+int Screen::GetWidth()
+{
+    return width;
+}
+
+int Screen::GetHeight()
+{
+    return height;
+}

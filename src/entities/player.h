@@ -1,8 +1,8 @@
 #pragma once
-#include "../common/vectors.h"
 #include "../common/common.h"
+#include "../common/vectors.h"
 
-enum MovementDirection {
+enum Direction {
     Forwards,
     Backwards,
     Left,
@@ -12,7 +12,8 @@ enum MovementDirection {
 class Player {
     Vector2D<double> position;
     Vector2D<double> direction;
-    double speed;
+    double runningSpeed;
+    double turningSpeed;
 
 public:
     Player();
@@ -21,7 +22,9 @@ public:
 
     Vector2D<double> GetDirection();
 
-    void Move(MovementDirection mov);
+    void Move(Direction mov);
 
-    void Rotate(const double theta);
+    void Rotate(Direction rot);
+
+    Vector3D<double> ToMapVectorSystem(Vector3D<double> v);
 };

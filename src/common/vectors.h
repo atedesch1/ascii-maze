@@ -2,6 +2,12 @@
 #include <cmath>
 
 template <typename T>
+class Vector2D;
+
+template <typename T>
+class Vector3D;
+
+template <typename T>
 class Vector2D {
 public:
     T x, y;
@@ -12,23 +18,34 @@ public:
         this->y = y;
     }
 
-    T dot(const Vector2D<T>& v)
+    T Dot(const Vector2D<T>& v)
     {
         return x * v.x + y * v.y;
     }
 
-    double abs()
+    double Abs()
     {
         return sqrt(x * x + y * y);
     }
 
-    Vector2D<T> rotate(const double theta)
+    Vector2D<T> ToUnit()
+    {
+        auto length = Abs();
+        return Vector2D<T>(x * 1 / length, y * 1 / length);
+    }
+
+    Vector2D<T> Rotate(const double theta)
     {
         double sinTheta = std::sin(theta);
         double cosTheta = std::cos(theta);
         return Vector2D<T>(
             x * cosTheta - y * sinTheta,
             x * sinTheta + y * cosTheta);
+    }
+
+    Vector3D<T> To3D()
+    {
+        return Vector3D<T>(x, y, 0);
     }
 };
 
@@ -68,18 +85,25 @@ public:
         this->z = z;
     }
 
-    T dot(const Vector3D<T>& v)
+    T Dot(const Vector3D<T>& v)
     {
         return x * v.x + y * v.y + z * v.z;
     }
 
-    double abs()
+    double Abs()
     {
         return sqrt(x * x + y * y + z * z);
     }
 
-    Vector3D<T> rotate(const double thetax, const double thetay, const double thetaz)
+    Vector3D<T> ToUnit()
     {
+        auto length = Abs();
+        return Vector3D<T>(x * 1 / length, y * 1 / length, z * 1 / length);
+    }
+
+    Vector2D<T> To2D()
+    {
+        return Vector2D<T>(x, y);
     }
 };
 
@@ -103,5 +127,5 @@ Vector3D<T> operator*(T& a, const Vector3D<T>& v)
 template <typename T>
 Vector3D<T> operator*(const Vector3D<T>& v, T& a)
 {
-    return Vector3D<T>(a * v.z, a * v.y, a * v.z);
+    return Vector3D<T>(a * v.x, a * v.y, a * v.z);
 }

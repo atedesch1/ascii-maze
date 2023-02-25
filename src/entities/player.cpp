@@ -1,10 +1,13 @@
 #include "player.h"
+#include <cmath>
 
 Player::Player()
-    : position(0, 0)
-    , direction(0, 1)
+    : position(40, 40)
+    , direction(1, 0)
 {
-    speed = 1;
+    direction = direction.ToUnit();
+    runningSpeed = 1;
+    turningSpeed = DegreesToRadians(5);
 }
 
 Vector2D<double> Player::GetPosition()
@@ -17,27 +20,44 @@ Vector2D<double> Player::GetDirection()
     return direction;
 }
 
-void Player::Move(MovementDirection mov)
+void Player::Move(Direction mov)
 {
     switch (mov) {
     case Forwards:
-        position = position + speed * direction;
+        position = position + runningSpeed * direction;
         break;
     case Backwards:
-        position = position - speed * direction;
+        position = position - runningSpeed * direction;
         break;
     case Left:
-        position = position + speed * direction.rotate(DegreesToRadians(90));
+        position = position + runningSpeed * direction.Rotate(DegreesToRadians(90));
         break;
     case Right:
-        position = position + speed * direction.rotate(DegreesToRadians(-90));
+        position = position - runningSpeed * direction.Rotate(DegreesToRadians(90));
         break;
     default:
         break;
     }
 }
 
-void Player::Rotate(const double theta)
+void Player::Rotate(Direction rot)
 {
-    direction = direction.rotate(DegreesToRadians(theta));
+    switch (rot) {
+    case Left:
+        direction = direction.Rotate(turningSpeed);
+        break;
+    case Right:
+        direction = direction.Rotate(-turningSpeed);
+        break;
+    default:
+        break;
+    }
+}
+
+Vector3D<double> Player::ToMapVectorSystem(Vector3D<double> v)
+{
+    return Vector3D<double>(
+        v.x * direction.x - v.y * direction.y,
+        v.x * direction.y + v.y * direction.x,
+        v.z);
 }
